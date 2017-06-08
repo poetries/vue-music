@@ -1,7 +1,7 @@
 {
   "name": "vue-music",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "音乐播放器",
   "author": "poetries <jingguanliuye@gmail.com>",
   "private": true,
   "scripts": {
