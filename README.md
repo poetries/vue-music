@@ -25,3 +25,32 @@ vue-music
 ---
 
 
+
+使用方法
+---
+
+```
+git clone https://github.com/poetries/vue-music.git
+
+# 进入根目录
+cd vue-music
+
+# 安装依赖
+npm install
+
+# 构建项目
+npm run dev
+
+# 打包
+npm run build
+```
+
+screenshot
+---
+
+
+License
+---
+
+© 2017 A poetries's [Ideas](https://github.com/poetries/ideas).
+
