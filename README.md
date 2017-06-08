@@ -6,5 +6,5 @@ vue-music
 项目组成
 ---
 
-![](shotscreen/music.png)
+![](shotscreen/music-vue.png)
 
