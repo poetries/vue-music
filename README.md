@@ -20,6 +20,8 @@ vue-music
 - webpack
 - stylus
 - eslint
+- better-scroll
+- vue-lazyload
 
 项目结构
 ---
