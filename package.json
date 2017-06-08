@@ -14,7 +14,8 @@
     "babel-runtime": "^6.0.0",
     "vue": "^2.3.3",
     "vue-router": "^2.3.1",
-    "fastclick": "^1.0.6"
+    "fastclick": "^1.0.6",
+    "jsonp": "^0.2.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
