@@ -8,6 +8,46 @@ vue-music
 
 ![](shotscreen/music-vue.png)
 
+
+组件划分
+---
+
+**基础组件**
+
+- confirm 确认对话框组件
+- listview 通讯录列表组件
+- loading 加载态组件
+- no-result 无结果展示页面
+- progress-bar 进度条组件
+- progress-circle 圆形进度条组件
+- scroll 移动端滚动组件
+- search-box 搜索框组件
+- search-list 搜索列表组件
+- slider 轮播图组件
+- switches 开关切换组件
+- top-list 顶部消息提示组件
+- song-list 歌曲列表组件
+
+**业务组件**
+
+- add-song 添加歌曲列表到组件
+- disc 歌单详情页组件
+- m-header 页面头部组件
+- music-list 歌曲列表页面组件
+- player 播放器内核组件
+- playlist 播放列表组件
+- rank 排行榜页面组件
+- recommend 推荐页面组件
+- search 搜索页面组件
+- singer 歌手页面组件
+- singer-detail 歌手详情页组件
+- suggest 搜索提示列表组件
+- tab 顶部导航栏组件
+- top-list 排行榜详情页组件
+- user-center 用户中心也组件
+
+
+
 技术栈
 ---
 
