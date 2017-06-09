@@ -51,17 +51,20 @@ vue-music
 技术栈
 ---
 
-- vue2.0
-- vue-cli
-- vue-router
-- vuex
-- axios
-- jsonp
-- webpack
-- stylus
-- eslint
-- better-scroll
-- vue-lazyload
+- MVVM框架：vue.js(2.0)
+- 状态管理：Vuex
+- 脚手架：ve-cli
+- 前端路由：Vue Router
+- 服务端通信：axios、jsonp
+- 懒加载：vue-lazyload
+- 移动端滚动库：better-scroll
+- 构建工具：webpack
+- 源码：es6
+- 样式：stylus
+- 规范：eslint
+
+
+
 
 项目结构
 ---
