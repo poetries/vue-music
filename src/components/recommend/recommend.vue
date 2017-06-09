@@ -1,11 +1,12 @@
 <template>
   <div class="recommend">
-    <div class="recommend-content">
-    	<div v-if='recommends.length' class="slider-wrapper">
+    <scroll ref="scroll" class="recommend-content" :data="discList">
+    	<div>
+    		<div v-if='recommends.length' class="slider-wrapper">
     		<slider>
     			<div v-for='item in recommends'>
-    				<a :href='item.linUrl'>
-    					<img :src="item.picUrl" alt="">
+    				<a :href='item.linkUrl'>
+    					<img @load="loadImage" :src="item.picUrl" alt="">
     				</a>
     			</div>
     		</slider>
@@ -24,11 +25,13 @@
     			</li>
     		</ul>
     	</div>
-    </div>
+    	</div>
+    </scroll>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import Scroll from 'base/scroll/scroll'
   import Slider from 'base/slider/slider'	 
   import {getRecommend,getDiscList} from 'api/recommend'
   import {ERR_OK} from 'api/config'
@@ -58,10 +61,17 @@
   					this.discList = res.data.list
   				}
   			})
+  		},
+  		loadImage() {
+  			if (!this.checkLoaded) {
+				this.$refs.scroll.refresh()
+				this.checkLoaded = true
+  			}	
   		}
   	},
   	components: {
-  		Slider
+  		Slider,
+  		Scroll
   	}
   }
 </script>
