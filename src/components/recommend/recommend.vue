@@ -3,15 +3,15 @@
     <scroll ref="scroll" class="recommend-content" :data="discList">
     	<div>
     		<div v-if='recommends.length' class="slider-wrapper">
-    		<slider>
-    			<div v-for='item in recommends'>
-    				<a :href='item.linkUrl'>
-    					<img class="needsclick" @load="loadImage" :src="item.picUrl" alt="">
-    				</a>
-    			</div>
-    		</slider>
-    	</div>
-    	<div class="recommend-list">
+	    		<slider>
+	    			<div v-for='item in recommends'>
+	    				<a :href='item.linkUrl'>
+	    					<img class="needsclick" @load="loadImage" :src="item.picUrl" alt="">
+	    				</a>
+	    			</div>
+	    		</slider>
+    	    </div>
+    	    <div class="recommend-list">
     		<h1 class="list-title">热门歌单推荐</h1>
     		<ul>
     			<li v-for="item in discList" class="item">
@@ -26,11 +26,15 @@
     		</ul>
     	</div>
     	</div>
+    	<div class="loading-container" v-show="!discList.length">
+    		<loading></loading>
+    	</div>
     </scroll>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import Loading from 'base/loading/loading'
   import Scroll from 'base/scroll/scroll'
   import Slider from 'base/slider/slider'	 
   import {getRecommend,getDiscList} from 'api/recommend'
@@ -71,7 +75,8 @@
   	},
   	components: {
   		Slider,
-  		Scroll
+  		Scroll,
+  		Loading
   	}
   }
 </script>
