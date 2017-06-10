@@ -1,5 +1,5 @@
 <template>
-<scroll class="listview" :data="data" ref="listview">
+<scroll class="listview" :data="data" ref="listview" :listenScroll="listenScroll" @scroll="scroll" :probeType="probeType">
   <ul>
     <li v-for="group in data" class="list-group" ref="listGroup">
       <h2 class="list-group-title">{{group.title}}</h2>
@@ -13,7 +13,7 @@
   </ul>
   <div class="list-shortcut" @touchstart="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove">
     <ul>
-      <li v-for="(item,index) in shortcutList" class="item" :data-index="index">{{item}}</li>
+      <li v-for="(item,index) in shortcutList" class="item" :data-index="index" :class="{'current': currentIndex===index}">{{item}}</li>
     </ul>
   </div>
 </scroll>
@@ -28,6 +28,15 @@
   export default {
     created() {
       this.touch = {}
+      this.listenScroll = true
+      this.listHeight = []
+      this.probeType = 3
+    },
+    data() {
+      return {
+         scrollY: -1,
+         currentIndex: 0
+      }
     },
     props: {
       data: {
@@ -58,8 +67,42 @@
         console.log(anchorIndex)
         this._scrollTo(anchorIndex)
       },
+      scroll(pos) {
+        this.scrollY = pos.y
+      },
       _scrollTo(index) {
          this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0)
+      },
+      _calculateHeight() {
+        this.listHeight = []
+        const list = this.$refs.listGroup
+        let height = 0
+        this.listHeight.push(height)
+        for(let i=0;i< list.length;i++){
+          let item = list[i]
+          height += item.clientHeight
+          this.listHeight.push(height)
+        }
+      }
+    },
+    watch: {
+      data() {
+        setTimeout(()=> {
+          this._calculateHeight()
+        }, 20)
+      },
+      scrollY(newY) {
+        const listHeight = this.listHeight
+        for (let i=0; i < listHeight.length; i++) {
+          let height1 = listHeight[i]
+          let height2 = listHeight[i+1]
+          if (!height2 || (-newY>height1 && -newY< height2)) {
+            this.currentIndex = i
+            console.log(this.currentIndex)
+            return
+          }
+        }
+        this.currentIndex = 0
       }
     },
     components: {
