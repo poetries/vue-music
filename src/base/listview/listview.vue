@@ -16,6 +16,9 @@
       <li v-for="(item,index) in shortcutList" class="item" :data-index="index" :class="{'current': currentIndex===index}">{{item}}</li>
     </ul>
   </div>
+  <div class="list-fixed" v-show="fixedTitle" ref="fixed">
+    <h1 class="fixed-title">{{fixedTitle}}</h1>
+  </div>
 </scroll>
 </template>
 
@@ -24,6 +27,7 @@
   import {getData} from 'common/js/dom'
 
   const ANCHOR_HEIGHT = 18
+  const TITLE_HEIGHT = 30
 
   export default {
     created() {
@@ -35,7 +39,8 @@
     data() {
       return {
          scrollY: -1,
-         currentIndex: 0
+         currentIndex: 0,
+         diff: -1
       }
     },
     props: {
@@ -49,6 +54,12 @@
         return this.data.map((group) => {
           return group.title.substr(0,1)
         })
+      },
+      fixedTitle() {
+        if (this.scrollY > 0) {
+          return ''
+        }
+        return this.data[this.currentIndex] ? this.data[this.currentIndex].title : ''
       }
     }, 
     methods: {
@@ -71,6 +82,15 @@
         this.scrollY = pos.y
       },
       _scrollTo(index) {
+         if (!index && index !==0) {
+           return
+         }
+         if (index < 0) {
+           index = 0
+         } else if (index > this.listHeight.length -2) {
+           index = this.listHeight.length -2
+         }
+         this.scrollY = -this.listHeight[index]
          this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0)
       },
       _calculateHeight() {
@@ -93,16 +113,32 @@
       },
       scrollY(newY) {
         const listHeight = this.listHeight
-        for (let i=0; i < listHeight.length; i++) {
+        // 当滚动到顶部 newY>0
+        if (newY > 0) {
+          this.currentIndex = 0
+          return
+        }
+
+        //在中间部分滚动
+        for (let i=0; i < listHeight.length -1; i++) {
           let height1 = listHeight[i]
           let height2 = listHeight[i+1]
-          if (!height2 || (-newY>height1 && -newY< height2)) {
+          if (-newY>=height1 && -newY< height2) {
             this.currentIndex = i
-            console.log(this.currentIndex)
+            this.diff = height2 + newY
             return
           }
         }
-        this.currentIndex = 0
+        // 滚动到底部且-newY大于最后一个元素的上限
+        this.currentIndex = listHeight.length - 2 
+      },
+      diff(newVal) {
+        let fixedTop = (newVal>0 && newVal < TITLE_HEIGHT) ? newVal - TITLE_HEIGHT : 0
+        if (this.fixedTop === fixedTop) {
+           return 
+        }
+        this.fixedTop = fixedTop
+        this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`
       }
     },
     components: {
