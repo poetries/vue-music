@@ -1,21 +1,84 @@
 <template>
   <div class="player" v-show="playlist.length>0">
     <div class="normal-player" v-show="fullScreen">
-      播放器
+      <div class="background">
+        <img width="100%" height="100%" :src="currentSong.image">
+      </div>
+      <div class="top">
+        <div class="back" @click="back">
+          <i class="icon-back"></i>
+        </div>
+        <div class="title" v-html="currentSong.name"></div>
+        <div class="subtitle"  v-html="currentSong.singer"></div>
+      </div>
+      <div class="middle">
+        <div class="middle-l">
+          <div class="cd-wrapper">
+            <div class="cd">
+              <img class="image" :src="currentSong.image">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="operators">
+          <div class="icon i-left">
+            <i class="icon-sequence"></i>
+          </div>
+          <div class="icon i-left">
+            <i class="icon-prev"></i>
+          </div>
+          <div class="icon i-center">
+            <i class="icon-play"></i>
+          </div>
+          <div class="icon i-right">
+            <i class="icon-next"></i>
+          </div>
+          <div class="icon i-right">
+            <i class="icon-not-favorite"></i>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="mini-player" v-show="!fullScreen"></div>
+    <div class="mini-player" v-show="!fullScreen" @click="open">
+      <div class="icon">
+        <img width="40" height="40" :src="currentSong.image">
+      </div>
+      <div class="text">
+        <div class="name"  v-html="currentSong.name"></div>
+        <div class="desc"  v-html="currentSong.singer"></div>
+      </div>
+      <div class="control">
+        
+      </div>
+      <div class="control">
+        <div class="icon-playlist"></div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {mapGetters} from 'vuex'
+  import {mapGetters, mapMutations} from 'vuex'
 
   export default {
     computed: {
       ...mapGetters([
         'fullScreen',
-        'playlist'
+        'playlist',
+        'currentSong'
       ])
+    },
+    methods: {
+      back() {
+        this.setFullScreen(false)
+      },
+      open() {
+        this.setFullScreen(true)
+      },
+      ...mapMutations({
+        setFullScreen: 'SET_FULL_SCREEN'
+      })
     }
   }
 </script>
