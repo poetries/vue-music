@@ -73,7 +73,7 @@
           </div>
         </div>
       </transition>
-      <audio ref="audio" :src="currentSong.url" @canplay="ready" @error="error" @timeupdate="updateTime"></audio>
+      <audio ref="audio" :src="currentSong.url" @canplay="ready" @error="error" @timeupdate="updateTime" @ended="end"></audio>
   </div>
     
 </template>
@@ -179,6 +179,17 @@
           return
         }
         this.setPlayingState(!this.playing)
+      },
+      end() {
+        if (this.mode === playMode.loop) {
+          this.loop()
+        } else {
+          this.next()
+        }
+      },
+      loop(){
+        this.$refs.audio.currentTime = 0
+        this.$refs.audio.play()
       },
       next() {
         if (!this.songReady) {
