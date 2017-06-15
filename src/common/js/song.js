@@ -23,6 +23,7 @@ export default class Song {
       getLyric(this.mid).then((res) => {
         if (res.retcode === ERR_OK) {
           this.lyric = Base64.decode(res.lyric)
+          console.log(this.lyric)
           resolve(this.lyric)
         } else {
           reject('no lyric')
