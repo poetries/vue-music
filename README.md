@@ -93,6 +93,28 @@ npm run build
 screenshot
 ---
 
+- 推荐页面
+
+![](shotscreen/recommend.png)
+
+- 歌手页面
+
+![](shotscreen/singer.png)
+
+- 排行页面
+
+![](shotscreen/rank.png)
+
+- 搜索页面
+
+![](shotscreen/search.png)
+
+- 播放页面
+
+![](shotscreen/player.png)
+![](shotscreen/song.png)
+
+
 
 License
 ---
